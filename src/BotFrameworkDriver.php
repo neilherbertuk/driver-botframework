@@ -192,9 +192,10 @@ class BotFrameworkDriver extends HttpDriver
         $this->apiURL = Collection::make($payload)->get('serviceUrl',
                 Collection::make($additionalParameters)->get('serviceUrl')).'/v3/conversations/'.urlencode($recipient).'/activities';
 
-        if (strstr($this->apiURL, 'webchat.botframework')) {
+        if (strstr($this->apiURL, 'webchat.botframework') || strstr($this->apiURL, 'localhost') || strstr($this->apiURL, '127.0.0.1')) {
             $parameters['from'] = [
                 'id' => $payload['recipient']['id'],
+                'name' => $payload['recipient']['name'],
             ];
         }
 
